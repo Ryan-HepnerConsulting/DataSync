@@ -1,0 +1,12 @@
+{
+    "IsEncrypted": false,
+    "Values": {
+        "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+        "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated"
+    },
+    "Cosmos:ConnectionString": "AccountEndpoint=...;AccountKey=...;",
+    "Cosmos:Database": "flowsync",
+    "Cosmos:Container": "tenants",
+    "Queue:Name": "flow-jobs",
+    "KeyVault:Uri": "https://<your-kv-name>.vault.azure.net/"
+}

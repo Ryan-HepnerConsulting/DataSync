@@ -1,0 +1,17 @@
+{
+    "version": "2.0",
+    "logging": {
+        "applicationInsights": {
+            "samplingSettings": { "isEnabled": true }
+        }
+    },
+    "extensions": {
+        "queues": {
+            "batchSize": 32,
+            "newBatchThreshold": 16,
+            "maxDequeueCount": 5,
+            "visibilityTimeout": "00:05:00",
+            "maxPollingInterval": "00:00:02"
+        }
+    }
+}

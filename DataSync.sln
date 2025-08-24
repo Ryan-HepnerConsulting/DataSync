@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSync.Functions", "DataSync.Functions\DataSync.Functions.csproj", "{F8569139-F92F-40FF-9C57-D9A35B22A2B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSync.Functions.Tests", "DataSync.Functions.Tests\DataSync.Functions.Tests.csproj", "{6D3E975E-4618-46C7-B252-FFA794FDCB2F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F8569139-F92F-40FF-9C57-D9A35B22A2B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8569139-F92F-40FF-9C57-D9A35B22A2B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8569139-F92F-40FF-9C57-D9A35B22A2B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8569139-F92F-40FF-9C57-D9A35B22A2B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D3E975E-4618-46C7-B252-FFA794FDCB2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D3E975E-4618-46C7-B252-FFA794FDCB2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D3E975E-4618-46C7-B252-FFA794FDCB2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D3E975E-4618-46C7-B252-FFA794FDCB2F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
