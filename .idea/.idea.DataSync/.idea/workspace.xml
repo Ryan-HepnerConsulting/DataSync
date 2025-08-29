@@ -7,8 +7,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="128f6878-bbc2-41cb-9777-2e3a6e790aeb" name="Changes" comment="initial commit">
+    <list default="true" id="128f6878-bbc2-41cb-9777-2e3a6e790aeb" name="Changes" comment="formatted read me">
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/Common/FakeFlow.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/Common/FakeFlowRegistry.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/Common/FakeSecretClient.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/Flows/HomeDepot-BuilderPrimeFlowTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/Infrastructure/FlowRegistryTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/Infrastructure/RunFlowFailureTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/Infrastructure/RunFlowHandlerTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/Infrastructure/ScheduleTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/Load/LoadSmokeTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions/Flows/Connectors/BuilderPrime/BuilderPrimeClient.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions/Flows/Connectors/BuilderPrime/Models/JobDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions/Flows/Connectors/HomeDepot/HomeDepotClient.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions/Flows/Connectors/HomeDepot/Models/OrderDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions/Flows/HomeDepot-BuilderPrime/v1/HomeDepotToBuilderPrimeFlow.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions/Flows/HomeDepot-BuilderPrime/v1/Mapping.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions/Flows/HomeDepot-BuilderPrime/v1/Sample/BuilderPrime-Jobs.expected.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions/Flows/HomeDepot-BuilderPrime/v1/Sample/HomeDepot-Order.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions/Flows/HomeDepot-BuilderPrime/v1/Transform.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions/Flows/_shared/FlowBase.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions/Flows/_shared/Http.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions/Flows/_shared/Secrets.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataSync.Functions/Helpers/CronUtil.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DataSync/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DataSync/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions.Tests/Flows/WeatherFlowTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/Flows/WeatherFlowTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions.Tests/bin/Debug/net9.0/.msCoverageSourceRootsMapping_DataSync.Functions.Tests" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/bin/Debug/net9.0/.msCoverageSourceRootsMapping_DataSync.Functions.Tests" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions.Tests/bin/Debug/net9.0/CoverletSourceRootsMapping_DataSync.Functions.Tests" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/bin/Debug/net9.0/CoverletSourceRootsMapping_DataSync.Functions.Tests" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/Debug/net9.0/DataSync.Functions.Tests.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/Debug/net9.0/DataSync.Functions.Tests.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/Debug/net9.0/DataSync.Functions.Tests.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/Debug/net9.0/DataSync.Functions.Tests.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/Debug/net9.0/DataSync.Functions.Tests.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/Debug/net9.0/DataSync.Functions.Tests.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions/obj/Debug/net9.0/DataSync.Functions.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions/obj/Debug/net9.0/DataSync.Functions.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions/obj/Debug/net9.0/DataSync.Functions.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions/obj/Debug/net9.0/DataSync.Functions.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions/obj/Debug/net9.0/DataSync.Functions.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions/obj/Debug/net9.0/DataSync.Functions.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions/obj/rider.project.model.nuget.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +51,13 @@
   <component name="DpaMonitoringSettings">
     <option name="firstShow" value="false" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JSON File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -26,25 +66,26 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Ryan-HepnerConsulting"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Ryan-HepnerConsulting&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Ryan-HepnerConsulting/DataSync.git",
-    "accountId": "f20e8591-a015-4918-b1dc-964cf58dc901"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Ryan-HepnerConsulting/DataSync.git&quot;,
+    &quot;accountId&quot;: &quot;f20e8591-a015-4918-b1dc-964cf58dc901&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/DataSync.Functions.Tests/WeatherFlowTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c439425da351c75ac7d966a1cc8324b51a9c471865af79d2f2f3fcb65e392/HttpClient.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="31hVreYg1qyxUs8Jegv12RjHK6k" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -54,6 +95,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "04727bea-15aa-4980-b0dd-a8f9367b241b.executor": "Debug",
+    "27748f78-bacf-433a-a767-dacaec34185b.executor": "Debug",
+    "Azure - Run Function App.DataSync.Functions.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
@@ -94,7 +137,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1755976492167</updated>
-      <workItem from="1755976493466" duration="9217000" />
+      <workItem from="1755976493466" duration="11206000" />
+      <workItem from="1756056611255" duration="5214000" />
+      <workItem from="1756262512058" duration="3663000" />
+      <workItem from="1756387013414" duration="8000" />
+      <workItem from="1756419976760" duration="11253000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -104,7 +151,15 @@
       <option name="project" value="LOCAL" />
       <updated>1756016306116</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="formatted read me">
+      <option name="closed" value="true" />
+      <created>1756016804438</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1756016804438</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -126,6 +181,39 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
+    <MESSAGE value="formatted read me" />
+    <option name="LAST_COMMIT_MESSAGE" value="formatted read me" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/DataSync.Functions/Flows/TestFlow.cs</url>
+          <line>15</line>
+          <properties documentPath="C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\Flows\TestFlow.cs" containingFunctionPresentation="Method 'RunAsync'">
+            <startOffsets>
+              <option value="511" />
+            </startOffsets>
+            <endOffsets>
+              <option value="621" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/DataSync.Functions/Flows/HomeDepot-BuilderPrime/v1/HomeDepotToBuilderPrimeFlow.cs</url>
+          <line>21</line>
+          <properties documentPath="C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\Flows\HomeDepot-BuilderPrime\v1\HomeDepotToBuilderPrimeFlow.cs" containingFunctionPresentation="Method 'RunAsync'">
+            <startOffsets>
+              <option value="857" />
+            </startOffsets>
+            <endOffsets>
+              <option value="921" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

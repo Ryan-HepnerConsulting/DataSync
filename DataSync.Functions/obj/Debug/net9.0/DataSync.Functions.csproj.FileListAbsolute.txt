@@ -102,3 +102,4 @@ C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\obj\Debug\net9.0\refint
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\obj\Debug\net9.0\DataSync.Functions.pdb
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\obj\Debug\net9.0\DataSync.Functions.genruntimeconfig.cache
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\obj\Debug\net9.0\ref\DataSync.Functions.dll
+C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\obj\Debug\net9.0\DataSync.Functions.sourcelink.json
