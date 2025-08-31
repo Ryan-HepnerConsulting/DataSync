@@ -5,19 +5,16 @@ namespace DataSync.Functions.Flows.HomeDepot_BuilderPrime.v1;
 
 public static class Mapping
 {
-    public static BuilderPrimeJob ToBuilderPrimeJob(HomeDepotOrder o) => new()
+    public static BuilderPrimeJob ToBuilderPrimeJob(LeadLookupResponse.LeadHeader o) => new()
     {
-        ExternalId = o.OrderId,
-        Name       = o.CustomerName,
-        Phone      = o.Phone,
+        /*Phone      = o.Phone,
         City       = o.City,
         State      = o.State,
-        PostalCode = o.PostalCode,
         Stage = o.Status switch
         {
             "delivered" => "Completed",
             "shipped"   => "In Progress",
             _           => "New"
-        }
+        }*/
     };
 }

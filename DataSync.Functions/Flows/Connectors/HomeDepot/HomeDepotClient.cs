@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using DataSync.Functions.Flows._shared;
+using DataSync.Functions.Flows.connectors.HomeDepot.Models;
 
 namespace DataSync.Functions.Flows.connectors.HomeDepot;
 
@@ -12,51 +13,33 @@ public sealed class HomeDepotClient
 {
     private readonly HttpClient _http = new HttpClient();
 
-    // --- Endpoints (prod) ---
     private static readonly string TokenUrl      = "https://api.hs.homedepot.com/iconx/v1/auth/accesstoken";
     private static readonly string LeadLookupUrl = "https://api.hs.homedepot.com/iconx/v1/leads/lookup";
     private static readonly string PoBatchUrl    = "https://api.hs.homedepot.com/iconx/v1/leads/pobatch";
 
-    // --- “Last pull” window (hard-coded for now) ---
-    private static readonly TimeSpan Lookback = TimeSpan.FromDays(30);
+    private static DateTime? LastLookupWatermark = null;
 
-    // --- Tenant-scoped secrets (loaded in ctor) ---
     private readonly string _tenantId;
-    private readonly string _providerId;      // e.g., PV892345
-    private readonly string _oauthClientId;   // K: ...
-    private readonly string _oauthClientSecret; // S: ...
 
-    // Token cache
+    // OAuth (for appToken)
+    private readonly string _oauthClientId;
+    private readonly string _oauthClientSecret;
     private string? _cachedToken;
     private DateTimeOffset _tokenExpiryUtc;
 
     private static readonly JsonSerializerOptions _json =
-        new(JsonSerializerDefaults.Web) { PropertyNameCaseInsensitive = true };
+        new(JsonSerializerDefaults.Web) { PropertyNameCaseInsensitive = true, WriteIndented = false };
 
-    /// <summary>
-    /// Create a tenant-scoped Home Depot API client.
-    /// Only tenantId is required; credentials are resolved internally.
-    /// </summary>
     public HomeDepotClient(string tenantId, HttpClient? http = null)
     {
         _tenantId = tenantId;
 
-        // -------------------------- AZURE KEY VAULT (future) --------------------------
-        // Example (uncomment & wire in your SecretClient/IOptions when ready):
-        // var kv = new SecretClient(new Uri(kvUrl), new DefaultAzureCredential());
-        // _providerId       = (await kv.GetSecretAsync($"hd:{tenantId}:providerId")).Value.Value;
-        // _oauthClientId    = (await kv.GetSecretAsync($"hd:{tenantId}:clientId")).Value.Value;
-        // _oauthClientSecret= (await kv.GetSecretAsync($"hd:{tenantId}:clientSecret")).Value.Value;
-        // -----------------------------------------------------------------------------
-
-        // For now, hard-code so it functions without Key Vault:
-        _providerId        = "PV892345";
+        // TODO: load these from Key Vault
         _oauthClientId     = "HvKDpzsPxZ7coojqyxbtaN9g0MpAcYDO";
         _oauthClientSecret = "N6xil9R6IGZzW06z";
     }
 
-    // -------------------- OAuth (modern) --------------------
-
+    // ========== OAuth (for appToken) ==========
     private sealed class TokenResponse
     {
         [JsonPropertyName("access_token")] public string AccessToken { get; init; } = default!;
@@ -69,10 +52,10 @@ public sealed class HomeDepotClient
         if (!string.IsNullOrEmpty(_cachedToken) && DateTimeOffset.UtcNow < _tokenExpiryUtc)
             return _cachedToken!;
 
-        var url = $"{TokenUrl}?grant_type=client_credentials";
-        using var req = new HttpRequestMessage(HttpMethod.Get, url);
-        var basic = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{_oauthClientId}:{_oauthClientSecret}"));
-        req.Headers.Authorization = new AuthenticationHeaderValue("Basic", basic);
+        using var req = new HttpRequestMessage(HttpMethod.Get, $"{TokenUrl}?grant_type=client_credentials");
+        req.Headers.Authorization = new AuthenticationHeaderValue(
+            "Basic",
+            Convert.ToBase64String(Encoding.ASCII.GetBytes($"{_oauthClientId}:{_oauthClientSecret}")));
 
         using var resp = await _http.SendAsync(req, ct);
         resp.EnsureSuccessStatusCode();
@@ -81,99 +64,22 @@ public sealed class HomeDepotClient
                       ?? throw new InvalidOperationException("Failed to acquire Home Depot OAuth token.");
 
         _cachedToken    = payload.AccessToken;
-        _tokenExpiryUtc = DateTimeOffset.UtcNow.AddSeconds(Math.Max(60, payload.ExpiresIn - 120)); // buffer
+        _tokenExpiryUtc = DateTimeOffset.UtcNow.AddSeconds(Math.Max(60, payload.ExpiresIn - 120));
         return _cachedToken!;
     }
 
-    // -------------------- Lead Lookup (modern, Bearer) --------------------
-
-    // --- Models the API expects exactly (JSON) ---
-    public sealed class LeadLookupRequest
-    {
-        [JsonPropertyName("SFILEADLOOKUPWS_Input")]
-        public Input _Input { get; init; } = new();
-
-        public sealed class Input
-        {
-            [JsonPropertyName("PageSize")] public int PageSize { get; init; } = 25;
-            [JsonPropertyName("ListOfSfileadbows")] public ListOf ListOfSfileadbows { get; init; } = new();
-            [JsonPropertyName("StartRowNum")] public int StartRowNum { get; init; } = 0;
-        }
-
-        public sealed class ListOf
-        {
-            [JsonPropertyName("Sfileadheaderws")]
-            public Sfileadheaderws Sfileadheaderws { get; init; } = new();
-        }
-
-        public sealed class Sfileadheaderws
-        {
-            [JsonPropertyName("Searchspec")] public string? Searchspec { get; init; }
-        }
-    }
-
-
-    public sealed class LeadLookupResponse
-    {
-        [JsonPropertyName("SFILEADLOOKUPWS_Output")]
-        public Output _Output { get; init; } = new();
-
-        public sealed class Output
-        {
-            [JsonPropertyName("Status")] public string? Status { get; init; }
-            [JsonPropertyName("LastPage")] public string? LastPage { get; init; }
-
-            [JsonIgnore]
-            public bool IsLastPage =>
-                string.Equals(LastPage, "true", StringComparison.OrdinalIgnoreCase) ||
-                LastPage == "1" || string.Equals(LastPage, "y", StringComparison.OrdinalIgnoreCase);
-            [JsonPropertyName("ListOfSfileadbows")] public ListOf? ListOf { get; init; }
-        }
-
-        public sealed class ListOf
-        {
-            [JsonPropertyName("Sfileadheaderws")]
-            public List<LeadHeader>? Items { get; init; }
-        }
-
-        public sealed class LeadHeader
-        {
-            [JsonPropertyName("Id")] public string? Id { get; init; }
-            [JsonPropertyName("MMSVCSServiceProviderOrderNumber")] public string? PoNumber { get; init; }
-            [JsonPropertyName("ContactFirstName")] public string? FirstName { get; init; }
-            [JsonPropertyName("ContactLastName")] public string? LastName { get; init; }
-            [JsonPropertyName("MainEmailAddress")] public string? Email { get; init; }
-            [JsonPropertyName("MMSVPreferredContactPhoneNumber")] public string? Phone { get; init; }
-            [JsonPropertyName("MMSVSiteAddress")] public string? Address1 { get; init; }
-            [JsonPropertyName("MMSVSiteCity")] public string? City { get; init; }
-            [JsonPropertyName("MMSVSiteState")] public string? State { get; init; }
-            [JsonPropertyName("MMSVSitePostalCode")] public string? Postal { get; init; }
-            [JsonPropertyName("SFIWorkflowOnlyStatus")] public string? Status { get; init; }
-            [JsonPropertyName("SFIMVendor")] public string? Mvendor { get; init; }
-            [JsonPropertyName("Created")] public string? Created { get; init; }
-        }
-    }
-
-    // --- Lookup using appToken only (no Bearer, no x-clientid) ---
+    // ========== Lookup (already working) ==========
     public async IAsyncEnumerable<LeadLookupResponse.LeadHeader> GetLeadsSinceLastPullAsync(
         [System.Runtime.CompilerServices.EnumeratorCancellation] CancellationToken ct = default)
     {
         var appToken = await GetAccessTokenAsync(ct);
-
-        var fromUtc   = DateTime.UtcNow - Lookback;
-        var fromLocal = fromUtc.ToLocalTime().ToString("MM/dd/yyyy HH:mm:ss");
-        var searchspec = $"([SFI MVendor #] = '{_providerId}' AND [Created] >= '{fromLocal}')";
+        var searchspec = LastLookupWatermark != null ? $"([Created] >= '{LastLookupWatermark:MM/dd/yyyy HH:mm:ss}')" : "";
 
         const int pageSize = 25;
         var start = 0;
         var last  = false;
 
-        // Force HTTP/1.1 and disable cookies
-        var handler = new SocketsHttpHandler
-        {
-            UseCookies = false
-        };
-
+        var handler = new SocketsHttpHandler { UseCookies = false };
         using var client = new HttpClient(handler)
         {
             DefaultRequestVersion = HttpVersion.Version11,
@@ -182,31 +88,20 @@ public sealed class HomeDepotClient
 
         while (!last)
         {
-            // Build the exact JSON Postman sends (no trailing spaces, no extra fields)
-            var json =
-            $@"{{
+            var json = $@"{{
               ""SFILEADLOOKUPWS_Input"": {{
                 ""PageSize"": {pageSize},
                 ""ListOfSfileadbows"": {{
-                  ""Sfileadheaderws"": {{
-                    ""Searchspec"": ""{searchspec.Replace("\"", "\\\"")}""
-                  }}
+                  ""Sfileadheaderws"": {{ ""Searchspec"": ""{searchspec.Replace("\"", "\\\"")}"" }}
                 }},
                 ""StartRowNum"": {start}
               }}
             }}";
 
-            using var req = new HttpRequestMessage(HttpMethod.Post, "https://api.hs.homedepot.com/iconx/v1/leads/lookup")
-            {
-                Version = HttpVersion.Version11
-            };
-
-            // Required headers only
+            using var req = new HttpRequestMessage(HttpMethod.Post, LeadLookupUrl) { Version = HttpVersion.Version11 };
             req.Headers.TryAddWithoutValidation("appToken", appToken);
             req.Headers.Accept.Clear();
             req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            // Send JSON with Content-Type EXACTLY "application/json" (no charset)
             var bytes = Encoding.UTF8.GetBytes(json);
             req.Content = new ByteArrayContent(bytes);
             req.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -217,7 +112,6 @@ public sealed class HomeDepotClient
             if (!resp.IsSuccessStatusCode)
                 throw new HttpRequestException($"Lead lookup failed ({(int)resp.StatusCode} {resp.ReasonPhrase}).\n{content}");
 
-            // Deserialize
             var payload = JsonSerializer.Deserialize<LeadLookupResponse>(content, _json)
                           ?? throw new InvalidOperationException("Empty/invalid response payload.");
 
@@ -225,80 +119,143 @@ public sealed class HomeDepotClient
             foreach (var lead in list)
                 yield return lead;
 
-            last = payload?._Output?.IsLastPage == true;
+            last  = payload?._Output?.IsLastPage == true;
             start += pageSize;
         }
     }
-    
-    public async Task<List<LeadLookupResponse.LeadHeader>> GetLeadsSinceLastPullAsListAsync(
-        CancellationToken ct = default)
+
+    public async Task<List<LeadLookupResponse.LeadHeader>> GetLeadsSinceLastPullAsListAsync(CancellationToken ct = default)
     {
         var results = new List<LeadLookupResponse.LeadHeader>();
-        await foreach (var l in GetLeadsSinceLastPullAsync(ct))
-            results.Add(l);
+        await foreach (var l in GetLeadsSinceLastPullAsync(ct)) results.Add(l);
         return results;
     }
 
-    // -------------------- Lead Update (PO Batch, modern Bearer) --------------------
+    // ========== pobatch (updates) ==========
 
-    public sealed class PoBatchRequest
+    private HttpRequestMessage NewPoBatchRequest(string appToken, string jsonBody)
     {
-        [JsonPropertyName("SFILEADPOBATCHICONX_Input")]
-        public Inbound _Inbound { get; init; } = new();
+        var req = new HttpRequestMessage(HttpMethod.Post, PoBatchUrl) { Version = HttpVersion.Version11 };
 
-        public sealed class Inbound
-        {
-            public ListOf ListOfMmSvCsServiceProviderLeadInbound { get; init; } = new();
-        }
-        public sealed class ListOf
-        {
-            public List<Lead> MmSvCsServiceProviderLeadInbound { get; init; } = new();
-        }
-        public sealed class Lead
-        {
-            public string? MMSVCSServiceProviderOrderNumber { get; init; } // HDSC lead #
-            public string? SFIMVendor { get; init; }                        // e.g., PV892345
-            public string? SFIWorkflowOnlyStatus { get; init; }             // e.g., "Received by SP"
-            public string? Description { get; init; }                       // notes (optional)
-            public string? ExternalRef { get; init; }                       // (optional) BP ids
-        }
-    }
-
-    /// <summary>
-    /// Minimal helper to ACK a lead as received by SP (no creds/urls required by caller).
-    /// </summary>
-    public async Task AcknowledgeLeadReceivedAsync(string hdLeadNumber, string? notes = null, CancellationToken ct = default)
-    {
-        var accessToken = await GetAccessTokenAsync(ct);
-
-        var body = new PoBatchRequest
-        {
-            _Inbound = new PoBatchRequest.Inbound
-            {
-                ListOfMmSvCsServiceProviderLeadInbound = new PoBatchRequest.ListOf
-                {
-                    MmSvCsServiceProviderLeadInbound =
-                    {
-                        new PoBatchRequest.Lead
-                        {
-                            MMSVCSServiceProviderOrderNumber = hdLeadNumber,
-                            SFIMVendor = _providerId,
-                            SFIWorkflowOnlyStatus = "Received by SP",
-                            Description = notes
-                        }
-                    }
-                }
-            }
-        };
-
-        using var req = new HttpRequestMessage(HttpMethod.Post, PoBatchUrl)
-        {
-            Content = JsonContent.Create(body, options: _json)
-        };
-        req.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+        // Required headers: appToken + x-clientid; JSON content-type
+        req.Headers.TryAddWithoutValidation("appToken", appToken);
+        req.Headers.Accept.Clear();
         req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-        using var resp = await _http.SendAsync(req, ct);
-        resp.EnsureSuccessStatusCode();
+        req.Content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+        return req;
     }
+
+    private async Task SubmitPoBatchAsync(IEnumerable<object> items, CancellationToken ct)
+    {
+        if (items is null) return;
+
+        const int batchLimit = 10; // API limit
+        var appToken = await GetAccessTokenAsync(ct);
+
+        foreach (var chunk in items.Chunk(batchLimit))
+        {
+            var wrapper = new
+            {
+                SFILEADPOBATCHICONX_Input = new
+                {
+                    ListOfMmSvCsServiceProviderLeadInbound = new
+                    {
+                        MmSvCsServiceProviderLeadHeaderInbound = chunk
+                    }
+                }
+            };
+
+            var body = JsonSerializer.Serialize(wrapper, _json);
+            using var req = NewPoBatchRequest(appToken, body);
+            using var resp = await _http.SendAsync(req, ct);
+            var text = await resp.Content.ReadAsStringAsync(ct);
+            if (!resp.IsSuccessStatusCode)
+                throw new HttpRequestException($"pobatch failed: {(int)resp.StatusCode} {resp.ReasonPhrase}\n{text}");
+        }
+    }
+
+    // -------- Builders (ensure we include required header fields on every update) --------
+
+    public static object BuildHeaderUpdate(
+        string id,
+        string referralStore4,
+        string mvendor,
+        string programGroup,
+        string status,
+        string? statusReason,
+        string typeCode,
+        LeadLookupResponse.LeadHeader echo // used to echo back core identity/location
+    )
+    {
+        return new
+        {
+            Id = id,
+            ContactFirstName = echo.ContactFirstName ?? "",
+            ContactLastName  = echo.ContactLastName  ?? "",
+            MMSVPreferredContactPhoneNumber = echo.MMSVPreferredContactPhoneNumber ?? echo.SFIContactHomePhone ?? "",
+            MMSVSiteAddress   = echo.MMSVSiteAddress   ?? "",
+            MMSVSiteCity      = echo.MMSVSiteCity      ?? "",
+            MMSVSiteState     = echo.MMSVSiteState     ?? "",
+            MMSVSitePostalCode= echo.MMSVSitePostalCode?? "",
+            MMSVSiteCountry   = echo.MMSVSiteCountry   ?? "US",
+            MMSVStoreNumber   = referralStore4,
+            SFIMVendor        = mvendor,
+            SFIProgramGroupNameUnconstrained = programGroup,
+            SFIReferralStore  = referralStore4,
+            SFIWorkflowOnlyStatus = status,                   // e.g., Acknowledged/Confirmed/Cancelled
+            SFIStatusReason   = statusReason,                 // required for Cancelled etc.
+            MMSVCSNeedAck     = "N",
+            MMSVCSSubmitLeadFlag = "N",
+            MMSVCSSVSTypeCode = typeCode,
+            MainEmailAddress  = echo.MainEmailAddress ?? null
+        };
+    }
+
+    public static object BuildAppointmentUpdate(
+        string id,
+        string referralStore4,
+        string mvendor,
+        string programGroup,
+        string typeCode,
+        string apptId,
+        DateTime scheduleUtc,
+        bool isReschedule,
+        DateTime? originalScheduleUtc
+    )
+    {
+        // IMPORTANT: child-only update; do not change header status here.
+        var appt = new
+        {
+            Id = apptId,
+            ScheduleDate = scheduleUtc.ToString("MM/dd/yyyy HH:mm:ss"),
+            RescheduledFlag = isReschedule ? "Y" : "N",
+            OriginalApptDate = isReschedule && originalScheduleUtc.HasValue
+                ? originalScheduleUtc.Value.ToString("MM/dd/yyyy HH:mm:ss")
+                : null,
+            PreferredScheduleDate = scheduleUtc.ToString("MM/dd/yyyy HH:mm:ss")
+        };
+
+        return new
+        {
+            Id = id,
+            SFIMVendor = mvendor,
+            SFIReferralStore = referralStore4,
+            SFIProgramGroupNameUnconstrained = programGroup,
+            MMSVCSNeedAck = "N",
+            MMSVCSSubmitLeadFlag = "N",
+            MMSVCSSVSTypeCode = typeCode,
+            ListOfMmSvCsServiceProviderAppointment = new
+            {
+                MmSvCsServiceProviderAppointment = new[] { appt }
+            }
+        };
+    }
+
+    // Public batch helpers
+    public Task SubmitLeadHeaderBatchAsync(IEnumerable<object> headerItems, CancellationToken ct)
+        => SubmitPoBatchAsync(headerItems, ct);
+
+    public Task SubmitAppointmentBatchAsync(IEnumerable<object> apptItems, CancellationToken ct)
+        => SubmitPoBatchAsync(apptItems, ct);
 }

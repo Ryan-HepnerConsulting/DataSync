@@ -7,9 +7,13 @@ namespace DataSync.Functions.Flows.connectors.BuilderPrime;
 public sealed class BuilderPrimeClient()
 {
     private readonly HttpClient _http = new HttpClient();
-    //8950670626070409Ss$
-    //nathan@hepnerconsulting.com
-    //https://bam.builderprime.com/admin/login
+    // 8950670626070409Ss$
+    // nathan@hepnerconsulting.com
+    // https://bam.builderprime.com/admin/login
+    
+    // API Key
+    // 7zrqZo3.kJG9TPxSQrQdm5fB9j3D
+
 
     public async Task UpsertJobsAsync(string baseUrl, string token, IEnumerable<BuilderPrimeJob> jobs, CancellationToken ct)
     {
