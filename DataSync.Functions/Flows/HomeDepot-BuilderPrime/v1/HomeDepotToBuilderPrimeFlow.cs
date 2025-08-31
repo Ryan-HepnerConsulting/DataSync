@@ -30,11 +30,14 @@ public sealed class HomeDepotToBuilderPrimeFlow : FlowBase, IFlowTask
         {
             // ------------------ PLACEHOLDER: replace with real BP → HD comparison ------------------
             // Pretend BP has made these changes since last sync (toggle as needed):
-            bool bpMarkedAcknowledged = false;                         // ACK lead in BP
-            bool bpMarkedConfirmed    = true;                          // first contact or appt set
-            bool bpScheduledAppt      = true;                          // created an appointment
+            bool bpMarkedAcknowledged = true;                         // ACK lead in BP
+            
+            bool bpMarkedConfirmed    = false;                          // first contact or appt set
+            bool bpScheduledAppt      = false;                          // created an appointment
+            
             bool bpRescheduledAppt    = false;                         // rescheduled an appointment
-            bool bpCancelled          = false;                         // cancelled lead
+            
+            bool bpCancelled          = true;                         // cancelled lead
             string? cancelReason      = "Customer Not Interested";     // required when cancelling
             string   apptId           = "APPT-001";
             DateTime apptDateUtc      = DateTime.UtcNow.AddDays(3).Date.AddHours(15); // 3pm UTC
@@ -44,9 +47,9 @@ public sealed class HomeDepotToBuilderPrimeFlow : FlowBase, IFlowTask
             // Common required header fields for any update (mirror values HD already has)
             string id     = lead.Id ?? lead.OrderNumber ?? throw new InvalidOperationException("Missing lead Id");
             string store  = (lead.SFIReferralStore ?? lead.MMSVStoreNumber ?? "0000").PadLeft(4, '0');
-            string prog   = lead.SFIProgramGroupNameUnconstrained ?? "SF&I Fencing";
-            string mvendor= lead.SFIMVendor ?? "YOUR_MVENDOR";
-            string typeCd = lead.MMSVCSSVSTypeCode ?? "10"; // pick your source code
+            string prog = lead.SFIProgramGroupNameUnconstrained;
+            string mvendor= lead.SFIMVendor;
+            string typeCd = lead.MMSVCSSVSTypeCode; 
 
             // 2a) Acknowledge
             if (bpMarkedAcknowledged)

@@ -53,22 +53,56 @@ public sealed class LeadLookupRequest
 
         public sealed class LeadHeader
         {
-            public string SFIReferralStore;
-            public string MMSVStoreNumber;
-            public string SFIProgramGroupNameUnconstrained;
-            public string SFIMVendor;
-            public string MMSVCSSVSTypeCode;
-            public string MMSVPreferredContactPhoneNumber;
-            public string SFIContactHomePhone;
-            public string MMSVSiteAddress;
-            public string MMSVSiteCity;
-            public string MMSVSitePostalCode;
-            public string MMSVSiteState;
-            public string MMSVSiteCountry;
+            [JsonPropertyName("SFIReferralStore")]
+            public string SFIReferralStore { get; set; }
+
+            [JsonPropertyName("MMSVStoreNumber")]
+            public string MMSVStoreNumber { get; set; }
+
+            [JsonPropertyName("SFIProgramGroupNameUnconstrained")]
+            public string SFIProgramGroupNameUnconstrained { get; set; }
+
+            [JsonPropertyName("SFIMVendor")]
+            public string SFIMVendor { get; set; }
+
+            [JsonPropertyName("MMSVCSSVSTypeCode")]
+            public string MMSVCSSVSTypeCode { get; set; }
+
+            [JsonPropertyName("MMSVPreferredContactPhoneNumber")]
+            public string MMSVPreferredContactPhoneNumber { get; set; }
+
+            [JsonPropertyName("SFIContactHomePhone")]
+            public string SFIContactHomePhone { get; set; }
+
+            [JsonPropertyName("MMSVSiteAddress")]
+            public string MMSVSiteAddress { get; set; }
+
+            [JsonPropertyName("MMSVSiteCity")]
+            public string MMSVSiteCity { get; set; }
+
+            [JsonPropertyName("MMSVSitePostalCode")]
+            public string MMSVSitePostalCode { get; set; }
+
+            [JsonPropertyName("MMSVSiteState")]
+            public string MMSVSiteState { get; set; }
+
+            [JsonPropertyName("MMSVSiteCountry")]
+            public string MMSVSiteCountry { get; set; }
+
+            [JsonPropertyName("Id")]
             public string? Id { get; init; }
+
+            [JsonPropertyName("OrderNumber")]
             public string OrderNumber { get; set; }
+
+            [JsonPropertyName("ContactFirstName")]
             public string ContactFirstName { get; set; }
+
+            [JsonPropertyName("ContactLastName")]
             public string ContactLastName { get; set; }
+
+            [JsonPropertyName("MainEmailAddress")]
             public object MainEmailAddress { get; set; }
         }
+
     }

@@ -18,6 +18,7 @@ public sealed class HomeDepotClient
     private static readonly string PoBatchUrl    = "https://api.hs.homedepot.com/iconx/v1/leads/pobatch";
 
     private static DateTime? LastLookupWatermark = null;
+    private static string VendorId = "PV892345";
 
     private readonly string _tenantId;
 
@@ -28,7 +29,10 @@ public sealed class HomeDepotClient
     private DateTimeOffset _tokenExpiryUtc;
 
     private static readonly JsonSerializerOptions _json =
-        new(JsonSerializerDefaults.Web) { PropertyNameCaseInsensitive = true, WriteIndented = false };
+        new(JsonSerializerDefaults.Web) { PropertyNameCaseInsensitive = true, PropertyNamingPolicy = null,   // keep exact case
+            DictionaryKeyPolicy = null,    // keep dictionary keys exact
+            WriteIndented = true           // optional, makes it pretty
+        };
 
     public HomeDepotClient(string tenantId, HttpClient? http = null)
     {
