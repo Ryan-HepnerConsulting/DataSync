@@ -25,6 +25,6 @@ public sealed class BuilderPrimeClient(string tenantId)
 
     public string GetBuilderPrimeStatus(string leadId)
     {
-        return "New Lead";
+        return "Appointment Set";
     }
 }

@@ -7,11 +7,9 @@ public class FlowMapping
         return """
                  {
                    "map": {
-                     "Acknowledged": [
-                       "New Leads",
-                       "Lead Issued"
-                     ],
                      "Confirmed": [
+                       "New Leads",
+                       "Lead Issued",
                        "Call Backs",
                        "Appointment Set",
                        "Appointment Confirmed",
