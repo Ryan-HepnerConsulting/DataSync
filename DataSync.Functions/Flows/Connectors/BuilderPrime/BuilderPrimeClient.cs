@@ -4,7 +4,7 @@ using DataSync.Functions.Flows.connectors.BuilderPrime.Models;
 
 namespace DataSync.Functions.Flows.connectors.BuilderPrime;
 
-public sealed class BuilderPrimeClient()
+public sealed class BuilderPrimeClient(string tenantId)
 {
     private readonly HttpClient _http = new HttpClient();
     // 8950670626070409Ss$
@@ -21,5 +21,10 @@ public sealed class BuilderPrimeClient()
         req.Content = JsonContent.Create(jobs);
         var resp = await _http.SendAsync(req, ct);
         resp.EnsureSuccessStatusCode();
+    }
+
+    public string GetBuilderPrimeStatus(string leadId)
+    {
+        return "New Lead";
     }
 }

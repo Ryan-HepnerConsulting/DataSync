@@ -186,7 +186,7 @@ public sealed class HomeDepotClient
         string referralStore4,
         string mvendor,
         string programGroup,
-        string status,
+        LeadLookupRequest.LeadStatus status,
         string? statusReason,
         string typeCode,
         LeadLookupResponse.LeadHeader echo // used to echo back core identity/location
@@ -210,7 +210,7 @@ public sealed class HomeDepotClient
             SFIWorkflowOnlyStatus = status,                   // e.g., Acknowledged/Confirmed/Cancelled
             SFIStatusReason   = statusReason,                 // required for Cancelled etc.
             MMSVCSNeedAck     = "N",
-            MMSVCSSubmitLeadFlag = "N",
+            MMSVCSSubmitLeadFlag = echo.MMSVCSubmitLeadFlag,
             MMSVCSSVSTypeCode = typeCode,
             MainEmailAddress  = echo.MainEmailAddress ?? null
         };

@@ -2,7 +2,7 @@ using DataSync.Functions.Flows.connectors.BuilderPrime.Models;
 
 namespace DataSync.Functions.Flows.HomeDepot_BuilderPrime.v1;
 
-public static class Transform
+public static class Transformer
 {
     public static BuilderPrimeJob NormalizePhone(BuilderPrimeJob j)
     {

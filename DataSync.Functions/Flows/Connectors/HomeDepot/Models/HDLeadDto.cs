@@ -1,3 +1,4 @@
+using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
 namespace DataSync.Functions.Flows.connectors.HomeDepot.Models;
@@ -5,6 +6,32 @@ namespace DataSync.Functions.Flows.connectors.HomeDepot.Models;
 // --- Models the API expects exactly (JSON) ---
 public sealed class LeadLookupRequest
     {
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public enum LeadStatus
+        {
+            [EnumMember(Value = "Acknowledged")]
+            Acknowledged,
+
+            [EnumMember(Value = "Cancelled")]
+            Cancelled,
+
+            [EnumMember(Value = "Confirmed")]
+            Confirmed,
+            [EnumMember(Value = "RTS")]
+            ReadyToSell,
+            [EnumMember(Value = "Sold. Paid In Full")]
+            Sold,
+        }
+        
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public enum LeadFlag
+        {
+            [EnumMember(Value = "N")]
+            DefaultOrCancelled,
+            [EnumMember(Value = "Z")]
+            Sold,
+        }
+        
         [JsonPropertyName("SFILEADLOOKUPWS_Input")]
         public Input _Input { get; init; } = new();
 
@@ -53,6 +80,9 @@ public sealed class LeadLookupRequest
 
         public sealed class LeadHeader
         {
+            [JsonPropertyName("MMSVCSubmitLeadFlag")]
+            public LeadLookupRequest.LeadFlag MMSVCSubmitLeadFlag;
+
             [JsonPropertyName("SFIReferralStore")]
             public string SFIReferralStore { get; set; }
 
