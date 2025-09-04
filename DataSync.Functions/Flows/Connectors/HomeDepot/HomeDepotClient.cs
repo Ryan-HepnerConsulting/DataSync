@@ -207,8 +207,11 @@ public sealed class HomeDepotClient
             SFIMVendor        = mvendor,
             SFIProgramGroupNameUnconstrained = programGroup,
             SFIReferralStore  = referralStore4,
-            SFIWorkflowOnlyStatus = status,                   // e.g., Acknowledged/Confirmed/Cancelled
-            SFIStatusReason   = statusReason,                 // required for Cancelled etc.
+            SFIWorkflowOnlyStatus =
+                status == LeadLookupRequest.LeadStatus.Sold
+                    ? "Sold. Paid in Full"
+                    : status.ToString(), // e.g., Acknowledged/Confirmed/Cancelled
+            SFIStatusReason   = statusReason, // required for Cancelled etc.
             MMSVCSNeedAck     = "N",
             MMSVCSSubmitLeadFlag = echo.MMSVCSubmitLeadFlag,
             MMSVCSSVSTypeCode = typeCode,

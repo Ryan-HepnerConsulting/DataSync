@@ -19,7 +19,7 @@ public sealed class LeadLookupRequest
             Confirmed,
             [EnumMember(Value = "RTS")]
             ReadyToSell,
-            [EnumMember(Value = "Sold. Paid In Full")]
+            [EnumMember(Value = "Sold. Paid in Full")]
             Sold,
         }
         
@@ -80,6 +80,9 @@ public sealed class LeadLookupRequest
 
         public sealed class LeadHeader
         {
+            [JsonPropertyName("SFIWorkflowOnlyStatus")]
+            public string SFIWorkflowOnlyStatus;
+            
             [JsonPropertyName("MMSVCSubmitLeadFlag")]
             public LeadLookupRequest.LeadFlag MMSVCSubmitLeadFlag;
 

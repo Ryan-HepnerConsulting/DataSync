@@ -13,18 +13,10 @@ public sealed class BuilderPrimeClient(string tenantId)
     
     // API Key
     // 7zrqZo3.kJG9TPxSQrQdm5fB9j3D
-
-
-    public async Task UpsertJobsAsync(string baseUrl, string token, IEnumerable<BuilderPrimeJob> jobs, CancellationToken ct)
-    {
-        using var req = new HttpRequestMessage(HttpMethod.Post, $"{baseUrl.TrimEnd('/')}/jobs:batchUpsert");
-        req.Content = JsonContent.Create(jobs);
-        var resp = await _http.SendAsync(req, ct);
-        resp.EnsureSuccessStatusCode();
-    }
+    
 
     public string GetBuilderPrimeStatus(string leadId)
     {
-        return "Appointment Set";
+        return "Job Sold";
     }
 }

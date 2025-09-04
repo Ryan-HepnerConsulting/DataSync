@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DataSync.Functions.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ebcc9a00c9f74c3a22f78585242b571b763d8182")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7f524925aa0a7215399053f7e7b0cd32bf2eeee7")]
 [assembly: System.Reflection.AssemblyProductAttribute("DataSync.Functions.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DataSync.Functions.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

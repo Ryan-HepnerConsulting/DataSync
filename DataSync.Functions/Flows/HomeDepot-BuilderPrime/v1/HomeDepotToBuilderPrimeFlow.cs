@@ -19,36 +19,27 @@ public sealed class HomeDepotToBuilderPrimeFlow : FlowBase, IFlowTask
         var flowMapping = FlowMapping.SampleFlowMapping();
         Mapper.LoadMappingFromJson(flowMapping);
 
-        // 1) Pull new/changed leads from HD since last watermark and create them in Builder Prime
+        // Pull new/changed leads from HD since last watermark and create them in Builder Prime
         var hdLeads = await hd.GetLeadsSinceLastPullAsListAsync(ct);
         await CreateBuilderPrimeLeads(hdLeads, ct);
 
-        // 2) Check Builder Prime for fields that HDSC requires us to echo back via updates
+        // Check Builder Prime for fields that HDSC requires us to echo back via updates
         //    (ACK/CONFIRM, APPOINTMENTS, DISPOSITION). 
         var headerUpdates = new List<object>();     // lead header only (status/fields)
         var apptUpdates   = new List<object>();     // appointment child object only
 
-        foreach (var lead in hdLeads)
+        foreach (var lead in hdLeads) 
         {
             if (string.IsNullOrEmpty(lead.Id))
                 return;
             
-            // ------------------ PLACEHOLDER: replace with real BP → HD comparison ------------------
-            // Pretend BP has made these changes since last sync (toggle as needed):
-            var leadStatus = LeadLookupRequest.LeadStatus.ReadyToSell;
-            string? cancelReason      = "Cannot connect with customer";     // required when cancelling
+            string? cancelReason = "Cannot connect with customer";     // required when cancelling
             
             var submitLeadFlag = LeadLookupRequest.LeadFlag.DefaultOrCancelled;
             
-            bool bpScheduledAppt      = false;                          // created an appointment
-            bool bpRescheduledAppt    = false;                         // rescheduled an appointment
-            string   apptId           = Guid.NewGuid().ToString();
-            DateTime apptDateUtc      = DateTime.UtcNow.AddDays(3).Date.AddHours(16); // 3pm UTC
-            DateTime? originalApptUtc = null;
-            
             // >>>>>>>> MAP BUILDER PRIME DATA TO PERFORM HC LEAD UPDATES HERE USING THE VARIABLES ABOVE
             
-            leadStatus = Mapper.ConvertBuilderPrimeLeadStatusToHdLeadStatus(bp.GetBuilderPrimeStatus(lead.Id));
+            var leadStatus = Mapper.ConvertBuilderPrimeLeadStatusToHdLeadStatus(bp.GetBuilderPrimeStatus(lead.Id));
             
             if (leadStatus == LeadLookupRequest.LeadStatus.Sold)
             {
@@ -57,9 +48,16 @@ public sealed class HomeDepotToBuilderPrimeFlow : FlowBase, IFlowTask
             
             lead.MMSVCSubmitLeadFlag = submitLeadFlag;
             
-            // Check for appointments and create them if necessary
+            // Set cancellation reasons dynamically based on flowMapping data
+            if (leadStatus == LeadLookupRequest.LeadStatus.Cancelled);
+                // set reason here
             
-            // ---------------------------------------------------------------------------------------
+            // Check for appointments and create them if necessary
+            bool bpScheduledAppt      = false;                          // created an appointment
+            bool bpRescheduledAppt    = false;                         // rescheduled an appointment
+            string   apptId           = Guid.NewGuid().ToString();
+            DateTime apptDateUtc      = DateTime.UtcNow.AddDays(3).Date.AddHours(16); // 3pm UTC
+            DateTime? originalApptUtc = null;
 
             // Common required header fields for any update (mirror values HD already has)
             string id     = lead.Id ?? lead.OrderNumber ?? throw new InvalidOperationException("Missing lead Id");
@@ -68,7 +66,7 @@ public sealed class HomeDepotToBuilderPrimeFlow : FlowBase, IFlowTask
             string mvendor= lead.SFIMVendor;
             string typeCd = lead.MMSVCSSVSTypeCode; 
 
-            // 2c) Appointment create / reschedule (child object ONLY; do not mix with header updates)
+            // Appointment create / reschedule (child object ONLY; do not mix with header updates)
             if (bpScheduledAppt || bpRescheduledAppt)
                 apptUpdates.Add(HomeDepotClient.BuildAppointmentUpdate(
                     id, store, mvendor, prog, typeCode: typeCd,
@@ -77,14 +75,20 @@ public sealed class HomeDepotToBuilderPrimeFlow : FlowBase, IFlowTask
                     isReschedule: bpRescheduledAppt,
                     originalScheduleUtc: originalApptUtc));
             
+            // if a project exists, then create the line items so the status updates to RTS automatically
+            // var project = JsonSerializer.Deserialize<BuilderPrime.Models.BpProject>(json);
+            // var items = project?.EstimateItems; // your line items
             
-            // 2d) Disposition (Cancelled with reason)
+            // If bp lead is older than 29 days and is not being set to sold during this call, then we cancel it to remain under 30 day limit
+            
+            
+            // peform lead update in home depot
             headerUpdates.Add(HomeDepotClient.BuildHeaderUpdate(
                 id, store, mvendor, prog, status: leadStatus, statusReason: cancelReason, typeCode: typeCd,
                 lead));
         }
 
-        // 3) Send updates to HDSC in batches of 10, keeping header and child updates separate
+        // Send updates to HDSC in batches of 10, keeping header and child updates separate
         if (headerUpdates.Count > 0)
             await hd.SubmitLeadHeaderBatchAsync(headerUpdates, ct);
 
