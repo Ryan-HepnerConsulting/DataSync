@@ -24,5 +24,7 @@
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Pkgxunit_analyzers Condition=" '$(Pkgxunit_analyzers)' == '' ">C:\Users\ryans\.nuget\packages\xunit.analyzers\1.18.0</Pkgxunit_analyzers>
     <PkgNUnit_Analyzers Condition=" '$(PkgNUnit_Analyzers)' == '' ">C:\Users\ryans\.nuget\packages\nunit.analyzers\4.3.0</PkgNUnit_Analyzers>
+    <PkgMicrosoft_Azure_Functions_Worker_Sdk_Analyzers Condition=" '$(PkgMicrosoft_Azure_Functions_Worker_Sdk_Analyzers)' == '' ">C:\Users\ryans\.nuget\packages\microsoft.azure.functions.worker.sdk.analyzers\1.2.2</PkgMicrosoft_Azure_Functions_Worker_Sdk_Analyzers>
+    <PkgMicrosoft_Azure_Functions_Worker_Sdk Condition=" '$(PkgMicrosoft_Azure_Functions_Worker_Sdk)' == '' ">C:\Users\ryans\.nuget\packages\microsoft.azure.functions.worker.sdk\2.0.5</PkgMicrosoft_Azure_Functions_Worker_Sdk>
   </PropertyGroup>
 </Project>

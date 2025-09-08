@@ -21,7 +21,8 @@ public class Orchestrator
     [Function("HourlyTimer")]
     public async Task RunAsync([TimerTrigger("0 0 * * * *")] TimerInfo _)
     {
-        await _queue.CreateIfNotExistsAsync();
+        _log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
+        /*await _queue.CreateIfNotExistsAsync();
 
         var now = DateTime.UtcNow;
         var it = _cosmos.GetItemLinqQueryable<Tenant>(allowSynchronousQueryExecution: false)
@@ -59,6 +60,6 @@ public class Orchestrator
                     await _cosmos.ReplaceItemAsync(tenant, tenant.Id, new PartitionKey(tenant.TenantId));
                 }
             }
-        }
+        }*/
     }
 }
