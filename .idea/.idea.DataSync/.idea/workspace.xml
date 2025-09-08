@@ -7,18 +7,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="128f6878-bbc2-41cb-9777-2e3a6e790aeb" name="Changes" comment="flow mappings based on builder prime lead status and home depot lead status">
-      <change afterPath="$PROJECT_DIR$/DataSync.Functions/Flows/Connectors/BuilderPrime/Models/BpProject.cs" afterDir="false" />
+    <list default="true" id="128f6878-bbc2-41cb-9777-2e3a6e790aeb" name="Changes" comment=".">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DataSync/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DataSync/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/Debug/net9.0/DataSync.Functions.Tests.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/Debug/net9.0/DataSync.Functions.Tests.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/Debug/net9.0/DataSync.Functions.Tests.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/Debug/net9.0/DataSync.Functions.Tests.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/Debug/net9.0/DataSync.Functions.Tests.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/Debug/net9.0/DataSync.Functions.Tests.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataSync.Functions/Flows/Connectors/BuilderPrime/BuilderPrimeClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions/Flows/Connectors/BuilderPrime/BuilderPrimeClient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataSync.Functions/Flows/Connectors/HomeDepot/HomeDepotClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions/Flows/Connectors/HomeDepot/HomeDepotClient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataSync.Functions/Flows/Connectors/HomeDepot/Models/HDLeadDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions/Flows/Connectors/HomeDepot/Models/HDLeadDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataSync.Functions/Flows/HomeDepot-BuilderPrime/v1/HomeDepotToBuilderPrimeFlow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions/Flows/HomeDepot-BuilderPrime/v1/HomeDepotToBuilderPrimeFlow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataSync.Functions/obj/Debug/net9.0/DataSync.Functions.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions/obj/Debug/net9.0/DataSync.Functions.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataSync.Functions/obj/Debug/net9.0/DataSync.Functions.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions/obj/Debug/net9.0/DataSync.Functions.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/DataSync.Functions.Tests.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/DataSync.Functions.Tests.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/DataSync.Functions.Tests.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/DataSync.Functions.Tests.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions.Tests/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions/DataSync.Functions.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions/DataSync.Functions.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions/local.settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions/local.settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions/obj/DataSync.Functions.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions/obj/DataSync.Functions.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSync.Functions/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/DataSync.Functions/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +59,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/106927d79dae58d552cf02cc6259937374ebd8103ac66086c62595612c9a6a/Convert.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/53b0d531c06faf86bf2ae111a9a2dbce4c52a9153feb9966ade60289c71bf52/ExecutionContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c439425da351c75ac7d966a1cc8324b51a9c471865af79d2f2f3fcb65e392/HttpClient.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DataSync.Functions.Tests/Flows/HomeDepot-BuilderPrimeFlowTests.cs" root0="FORCE_HIGHLIGHTING" />
@@ -88,16 +92,16 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Azure - Run Function App.DataSync.Functions">
     <configuration name="DataSync.Functions" type="AzureFunctionAppRun" factoryName="Azure - Run Function">
       <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/DataSync.Functions/DataSync.Functions.csproj" />
       <option name="LAUNCH_PROFILE_NAME" value="DataSync.Functions" />
-      <option name="PROJECT_TFM" value="net9.0" />
+      <option name="PROJECT_TFM" value="net8.0" />
       <option name="FUNCTION_NAMES" value="" />
       <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
       <option name="PROGRAM_PARAMETERS" value="host start --pause-on-error --port 7016" />
       <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DataSync.Functions/bin/Debug/net9.0" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DataSync.Functions/bin/Debug/net8.0" />
       <option name="TRACK_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="TRACK_URL" value="1" />
@@ -107,6 +111,9 @@
         <option name="RunAzuriteTask" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Azure - Run Function App.DataSync.Functions" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -123,6 +130,7 @@
       <workItem from="1756419976760" duration="12504000" />
       <workItem from="1756497976859" duration="34280000" />
       <workItem from="1756698556039" duration="11100000" />
+      <workItem from="1757292238379" duration="4856000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -180,7 +188,15 @@
       <option name="project" value="LOCAL" />
       <updated>1756699493512</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary=".">
+      <option name="closed" value="true" />
+      <created>1757303122938</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1757303122938</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,11 +219,11 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="initial commit" />
     <MESSAGE value="formatted read me" />
-    <MESSAGE value="." />
     <MESSAGE value="pulling leads and updating the status" />
     <MESSAGE value=".." />
     <MESSAGE value="flow mappings based on builder prime lead status and home depot lead status" />
-    <option name="LAST_COMMIT_MESSAGE" value="flow mappings based on builder prime lead status and home depot lead status" />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -263,6 +279,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/DataSync.Functions/Program.cs</url>
+          <line>34</line>
+          <properties documentPath="C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\Program.cs" containingFunctionPresentation="">
+            <startOffsets>
+              <option value="1139" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1187" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="57" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
