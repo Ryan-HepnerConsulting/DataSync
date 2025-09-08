@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DataSync.Functions")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7f524925aa0a7215399053f7e7b0cd32bf2eeee7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6894828254d0b0ec3ac757aee61fc840adf948ee")]
 [assembly: System.Reflection.AssemblyProductAttribute("DataSync.Functions")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DataSync.Functions")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

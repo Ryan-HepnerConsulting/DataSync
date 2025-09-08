@@ -1,8 +1,3 @@
-C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Microsoft.Azure.WebJobs.Extensions.FunctionMetadataLoader.dll
-C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Azure.Core.dll
-C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Azure.Storage.Queues.dll
-C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Microsoft.Azure.WebJobs.Extensions.Storage.Queues.dll
-C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Microsoft.Extensions.Azure.dll
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\Microsoft.Azure.Cosmos.ServiceInterop.dll
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\Cosmos.CRTCompat.dll
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\msvcp140.dll
@@ -14,13 +9,18 @@ C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\DataSy
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\functions.metadata
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\worker.config.json
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\extensions.json
+C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Microsoft.Azure.WebJobs.Extensions.FunctionMetadataLoader.dll
+C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Azure.Core.dll
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Azure.Identity.dll
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Azure.Storage.Common.dll
+C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Azure.Storage.Queues.dll
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\function.deps.json
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Microsoft.Azure.Functions.Worker.Extensions.dll
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Microsoft.Azure.Functions.Worker.Extensions.pdb
+C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Microsoft.Azure.WebJobs.Extensions.Storage.Queues.dll
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Microsoft.Azure.WebJobs.Host.Storage.dll
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Microsoft.Extensions.Azure.dll
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Microsoft.Identity.Client.dll
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Microsoft.Identity.Client.Extensions.Msal.dll
 C:\Users\ryans\RiderProjects\DataSync\DataSync.Functions\bin\Debug\net9.0\.azurefunctions\Microsoft.IdentityModel.Abstractions.dll
