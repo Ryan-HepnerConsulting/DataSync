@@ -19,7 +19,7 @@ var cfg = builder.Configuration;
 var logFactory = LoggerFactory.Create(b => b.AddConsole());
 var startupLog = logFactory.CreateLogger("Startup");
 
-// Cosmos
+/*// Cosmos
 var cosmosConn = cfg["Cosmos:ConnectionString"];
 var cosmosDb   = cfg["Cosmos:Database"];
 var cosmosCtr  = cfg["Cosmos:Container"];
@@ -32,10 +32,9 @@ if (string.IsNullOrWhiteSpace(cosmosConn) ||
     throw new InvalidOperationException("Cosmos settings missing.");
 }
 
-/*
 var cosmosClient = new CosmosClient(cosmosConn);
 var container = cosmosClient.GetDatabase(cosmosDb).GetContainer(cosmosCtr);
-builder.Services.AddSingleton(container);
+builder.Services.AddSingleton(container);*/
 
 // Queue
 var storageConn = cfg["AzureWebJobsStorage"];          // <-- no "Values:" prefix
@@ -48,7 +47,6 @@ if (string.IsNullOrWhiteSpace(storageConn))
 }
 
 builder.Services.AddSingleton(new QueueClient(storageConn, queueName));
-*/
 
 // Flow registry
 builder.Services.AddSingleton<IFlowRegistry, FlowRegistry>();
